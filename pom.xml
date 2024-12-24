@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>br.com.portal</groupId>
 	<artifactId>srv-portal</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>srv-portal</name>
 	<description>Serviço para portal</description>
 	<url/>
