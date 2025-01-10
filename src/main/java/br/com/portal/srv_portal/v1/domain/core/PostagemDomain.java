@@ -1,5 +1,6 @@
 package br.com.portal.srv_portal.v1.domain.core;
 
+import java.util.List;
 import java.util.UUID;
 
 public class PostagemDomain {
@@ -10,6 +11,8 @@ public class PostagemDomain {
     private String autor;
     private String texto;
     private String categoria;
+    private String background;
+    private List<ImagemDomain> imagens;
 
     public PostagemDomain() {
 
@@ -70,5 +73,21 @@ public class PostagemDomain {
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    public List<ImagemDomain> getImagens() {
+        return imagens;
+    }
+
+    public void setImagens(List<ImagemDomain> imagens) {
+        this.imagens = imagens;
+    }
+
+    public String getBackground() {
+        return background;
+    }
+
+    public void setBackground(String background) {
+        this.background = background;
     }
 }
