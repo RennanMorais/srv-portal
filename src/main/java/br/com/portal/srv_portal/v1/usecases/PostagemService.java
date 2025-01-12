@@ -23,15 +23,8 @@ public class PostagemService implements PostagemPort {
     public ApiResponseDTO postar(PostagemDomain request) {
         ApiResponseDTO response;
 
-        PostagemEntity entity = new PostagemEntity();
-        entity.setTitulo(request.getTitulo());
-        entity.setDescricao(request.getDescricao());
-        entity.setAutor(request.getAutor());
-        entity.setTexto(request.getTexto());
-        entity.setCategoria(request.getCategoria());
-
         try {
-            response = postagemRepositoryPort.postar(entity);
+            response = postagemRepositoryPort.postar(request);
         } catch (RuntimeException ex) {
             throw ex;
         }

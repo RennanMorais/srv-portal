@@ -19,7 +19,14 @@ public class PostagemBdService implements PostagemRepositoryPort {
     private PostagemRepository postagemRepository;
 
     @Override
-    public ApiResponseDTO postar(PostagemEntity entity) {
+    public ApiResponseDTO postar(PostagemDomain request) {
+        PostagemEntity entity = new PostagemEntity();
+        entity.setTitulo(request.getTitulo());
+        entity.setDescricao(request.getDescricao());
+        entity.setAutor(request.getAutor());
+        entity.setTexto(request.getTexto());
+        entity.setCategoria(request.getCategoria());
+
         postagemRepository.save(entity);
         return ApiResponseDTO.builder()
                 .codigo(String.valueOf(HttpStatus.OK.value()))
