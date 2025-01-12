@@ -18,13 +18,14 @@ public class PostagemDomain {
 
     }
 
-    public PostagemDomain(UUID id, String titulo, String descricao, String autor, String texto, String categoria) {
+    public PostagemDomain(UUID id, String titulo, String descricao, String autor, String texto, String categoria, String background) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
         this.autor = autor;
         this.texto = texto;
         this.categoria = categoria;
+        this.background = background;
     }
 
     public UUID getId() {
