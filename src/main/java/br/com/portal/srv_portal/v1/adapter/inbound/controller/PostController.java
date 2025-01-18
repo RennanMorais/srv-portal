@@ -6,6 +6,7 @@ import br.com.portal.srv_portal.v1.domain.dto.response.PostagemResponseDTO;
 import br.com.portal.srv_portal.v1.mapper.PostagemDomainMapper;
 import br.com.portal.srv_portal.v1.port.inbound.PostagemPort;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +16,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/portal")
+@RequiredArgsConstructor
 public class PostController {
 
-    @Autowired
-    private PostagemPort postagemPort;
+    private final PostagemPort postagemPort;
 
     @PostMapping("/postagem/postar")
     public ResponseEntity<ApiResponseDTO> postar(@Valid @RequestBody PostagemRequestDTO request) throws IOException {

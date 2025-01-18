@@ -1,9 +1,6 @@
 package br.com.portal.srv_portal.v1.domain.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.UuidGenerator;
 
@@ -20,5 +17,9 @@ public class ImagemEntity {
 
     @Column(name = "arquivo")
     private String arquivo;
+
+    @ManyToOne
+    @JoinColumn(name = "id_postagem")
+    private PostagemEntity postagem;
 
 }

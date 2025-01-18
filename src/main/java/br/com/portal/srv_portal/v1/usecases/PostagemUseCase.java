@@ -1,14 +1,15 @@
 package br.com.portal.srv_portal.v1.usecases;
 
 import br.com.portal.srv_portal.util.imagem.ImagemUtil;
-import br.com.portal.srv_portal.v1.domain.core.ImagemDomain;
 import br.com.portal.srv_portal.v1.domain.core.PostagemDomain;
 import br.com.portal.srv_portal.v1.domain.dto.response.ApiResponseDTO;
+import br.com.portal.srv_portal.v1.domain.dto.response.ImagemResponseDTO;
 import br.com.portal.srv_portal.v1.domain.dto.response.PostagemResponseDTO;
+import br.com.portal.srv_portal.v1.domain.entity.ImagemEntity;
 import br.com.portal.srv_portal.v1.domain.entity.PostagemEntity;
 import br.com.portal.srv_portal.v1.port.inbound.PostagemPort;
 import br.com.portal.srv_portal.v1.port.outbound.PostagemRepositoryPort;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +22,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PostagemService implements PostagemPort {
+@RequiredArgsConstructor
+public class PostagemUseCase implements PostagemPort {
 
-    @Autowired
-    private PostagemRepositoryPort postagemRepositoryPort;
+    private final PostagemRepositoryPort postagemRepositoryPort;
 
     private static final long MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 
@@ -76,7 +77,11 @@ public class PostagemService implements PostagemPort {
                         p.getTexto(),
                         p.getCategoria(),
                         p.getBackground(),
-                        new ArrayList<>()
+                        p.getImagens().stream()
+                                .map(i -> ImagemResponseDTO.builder()
+                                        .arquivo(i.getArquivo())
+                                        .build()
+                                ).collect(Collectors.toList())
                 ))
                 .collect(Collectors.toList());
     }

@@ -8,37 +8,38 @@ import br.com.portal.srv_portal.v1.domain.entity.ImagemEntity;
 import br.com.portal.srv_portal.v1.domain.entity.PostagemEntity;
 import br.com.portal.srv_portal.v1.port.outbound.PostagemRepositoryPort;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+@Component
+@RequiredArgsConstructor
 public class PostagemBdService implements PostagemRepositoryPort {
 
-    @Autowired
-    private PostagemRepository postagemRepository;
+    private final PostagemRepository postagemRepository;
 
     @Override
     public ApiResponseDTO postar(PostagemDomain request) {
-        PostagemEntity entity = new PostagemEntity();
-        entity.setTitulo(request.getTitulo());
-        entity.setDescricao(request.getDescricao());
-        entity.setAutor(request.getAutor());
-        entity.setTexto(request.getTexto());
-        entity.setCategoria(request.getCategoria());
-        entity.setBackground(request.getBackground());
+        PostagemEntity postagem = new PostagemEntity();
+        postagem.setTitulo(request.getTitulo());
+        postagem.setDescricao(request.getDescricao());
+        postagem.setAutor(request.getAutor());
+        postagem.setTexto(request.getTexto());
+        postagem.setCategoria(request.getCategoria());
+        postagem.setBackground(request.getBackground());
+        postagem.setImagens(new ArrayList<>());
 
         for(ImagemDomain img : request.getImagens()) {
             ImagemEntity imagemEntity = new ImagemEntity();
             imagemEntity.setArquivo(img.getArquivo());
-            entity.setImagens(new ArrayList<>());
-            entity.getImagens().add(imagemEntity);
+            imagemEntity.setPostagem(postagem);
+            postagem.getImagens().add(imagemEntity);
         }
 
-        postagemRepository.save(entity);
+        postagemRepository.save(postagem);
         return ApiResponseDTO.builder()
                 .codigo(String.valueOf(HttpStatus.OK.value()))
                 .mensagem("Postagem realizada com sucesso").build();

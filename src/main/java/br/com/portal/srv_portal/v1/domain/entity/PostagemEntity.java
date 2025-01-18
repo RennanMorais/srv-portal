@@ -7,8 +7,8 @@ import org.hibernate.annotations.UuidGenerator;
 import java.util.List;
 import java.util.UUID;
 
-@Table(name = "postagens")
 @Entity
+@Table(name = "postagens")
 @Data
 public class PostagemEntity {
 
@@ -34,7 +34,6 @@ public class PostagemEntity {
     @Column(name = "background")
     private String background;
 
-    @OneToMany
-    @JoinColumn(name = "idpostagem")
+    @OneToMany(mappedBy = "postagem", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ImagemEntity> imagens;
 }
